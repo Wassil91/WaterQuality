@@ -14,6 +14,11 @@ Vous y trouverez les différentes pages du site ainsi que la communication avec 
 
 In the project directory, you can run:
 
+
+### `npm install`
+
+Install dependencies.
+
 ### `npm start`
 
 Runs the app in the development mode.\
