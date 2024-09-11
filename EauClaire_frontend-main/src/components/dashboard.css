@@ -1,0 +1,118 @@
+/* General layout improvements for desktop and larger screens */
+.chart-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better readability */
+    border-radius: 12px; /* Slightly more rounded corners */
+    padding: 24px; /* More padding for a spacious look */
+    margin-bottom: 24px; /* Increased margin for better spacing */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer shadow for a more subtle effect */
+    width: 100%; /* Full width for larger screens */
+}
+
+/* Chart titles */
+.chart-container h3 {
+    margin-top: 0;
+    font-size: 1.75em; /* Larger font size for better emphasis */
+    color: #333; /* Darker color for better contrast */
+}
+
+/* Region select layout - horizontal organization */
+#regionSelect {
+    display: flex;
+    flex-wrap: wrap; /* Wrap items to the next line when necessary */
+    gap: 12px; /* Slightly larger space between checkboxes */
+}
+
+/* Dropdown container */
+.dropdown-container {
+    margin: 0.5%;
+    position: relative;
+    display: inline-block;
+    width: 220px; /* Slightly wider for better usability */
+}
+
+
+/* Dropdown button */
+.dropdown-button {
+    width: 100%;
+    padding: 12px; /* Increased padding for a more comfortable click area */
+    font-size: 1.1em; /* Larger font size for readability */
+    background-color: #fafafa; /* Lighter background for a softer look */
+    border: 1px solid #ddd; /* Lighter border for a subtle outline */
+    cursor: pointer;
+    text-align: left;
+    border-radius: 6px; /* Rounded corners for a modern look */
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #fff; /* Clean white background */
+    min-width: 220px; /* Slightly wider to match button width */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Softer and more diffuse shadow */
+    z-index: 1;
+    max-height: 250px; /* Increased max height for more content */
+    overflow-y: auto; /* Enable scrolling */
+    border-radius: 6px; /* Rounded corners for consistency */
+}
+
+/* Show the dropdown when clicked */
+.dropdown-container:hover .dropdown-content {
+    display: block;
+}
+
+/* Style checkboxes */
+.dropdown-content input {
+    margin-right: 12px; /* More space for clarity */
+}
+
+.dropdown-content div {
+    padding: 12px; /* Increased padding for more clickable area */
+    cursor: pointer;
+    background-color: #f8f8f8; /* Slightly off-white background */
+    border-bottom: 1px solid #ddd; /* Subtle separation between items */
+}
+
+.dropdown-content div:hover {
+    background-color: #eee; /* Slightly darker hover effect */
+}
+
+#yearSelect{
+    border-radius: 10%;
+    margin-left: 1%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .chart-container {
+        padding: 16px; /* Adjust padding for mobile */
+        margin-bottom: 16px; /* Adjust margin for mobile */
+        box-sizing: border-box; /* Ensure padding is included in width */
+        overflow-x: auto; /* Enable horizontal scrolling */
+    }
+
+    .chart-container h3 {
+        font-size: 1.5em; /* Maintain font size on mobile */
+    }
+
+    .dropdown-container {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .dropdown-button {
+        font-size: 1em; /* Maintain font size on mobile */
+    }
+
+    .dropdown-content {
+        min-width: 100%; /* Full width for smaller screens */
+        max-height: 200px; /* Adjust max height for mobile */
+        overflow-y: auto; /* Enable vertical scrolling */
+        border-radius: 6px; /* Maintain rounded corners */
+    }
+
+    /* Ensure region select is usable */
+    #regionSelect {
+        flex-direction: column; /* Stack checkboxes vertically */
+        gap: 12px; /* Slightly larger space between checkboxes */
+    }
+}

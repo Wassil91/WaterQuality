@@ -1,0 +1,118 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.modalContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+}
+
+.modalContent h2 {
+  margin-top: 0;
+}
+
+.modalContent h3 {
+  margin-top: 10px;
+}
+
+.modalContent select {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.modalContent button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modalContent button:hover {
+  background: #0056b3;
+}
+
+/* Ajoutez ceci dans votre fichier modal.css */
+select {
+  max-height: 150px; /* Ajustez la hauteur selon vos besoins */
+  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+}
+
+
+
+
+
+
+
+
+/* Ajoutez ceci dans votre fichier modal.css */
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.dataTable th, .dataTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.dataTable th {
+  background-color: #f4f4f4;
+}
+
+.dataTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ajoutez ceci dans votre fichier modal.css */
+.biodiversiteTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.biodiversiteTable th, .biodiversiteTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.biodiversiteTable th {
+  background-color: #f4f4f4;
+}
+
+.biodiversiteTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

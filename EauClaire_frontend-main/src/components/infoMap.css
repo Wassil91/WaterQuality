@@ -1,0 +1,47 @@
+.mapContainer {
+    background-color: rgba(255, 255, 255, 0.681);
+    border-radius: 15px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    height: 600px; /* Increased height */
+    width: 600px;  /* Increased width to match height */
+    max-width: 100%; /* Ensure it does not exceed the viewport */
+    margin: auto; /* Center horizontally and vertically */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    position: absolute; /* Absolute positioning for centering */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the element’s size */
+    padding: 15px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Ensure padding is included in height calculation */
+    border: 3px solid #ffffff; /* White border for image */
+}
+
+.map {
+    height: 100%; /* Full height of the container */
+    width: 100%;  /* Full width of the container */
+}
+
+.filterContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust gap for better spacing */
+    margin-bottom: 10px; /* Add margin-bottom to separate from the map */
+}
+
+.filterContainer label {
+    font-size: 16px;
+}
+
+.filterContainer select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}

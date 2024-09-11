@@ -1,0 +1,52 @@
+/* Ensure the bubbles cover the full page */
+.bubbles {
+    background: linear-gradient(#007fff, #004cff);
+    position: fixed; /* Fixed positioning to cover viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    z-index: -1; /* Behind other content */
+}
+
+/* Adjust the accueilContainer to cover the viewport height */
+.accueilContainer {
+    position: relative;
+    min-height: 100vh; /* Ensure it covers the viewport height */
+    overflow: hidden; /* Hide anything that overflows */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+/* Ensure the background image container takes up full space */
+.backgroundImageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center; /* Center background image */
+    z-index: -1; /* Ensure it's behind other content */
+}
+
+/* Ensure content is placed above the background */
+.overlayContent {
+    position: relative;
+    z-index: 1; /* Ensure content is above the background */
+    text-align: center; /* Center-align text */
+}
+
+/* Styles for images */
+.imageContainer img {
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Styles for paragraphs */
+.accueilDescription, .accueilPresentation {
+    margin-bottom: 1rem; /* Add space between paragraphs */
+    text-align: center; /* Center-align text */
+}
