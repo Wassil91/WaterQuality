@@ -15,13 +15,13 @@ const ConsoTable = () => {
     try {
       // Fetch water consumption data
       const consoResponse = await fetch(
-        `http://127.0.0.1:8000/api/consommation?year=${selectedYear}`
+        `https://eauclaire.online/api/consommation?year=${selectedYear}`
       );
       const consoData = await consoResponse.json();
 
       // Fetch water level data
       const niveauResponse = await fetch(
-        `http://127.0.0.1:8000/api/niveau?year=${selectedYear}`
+        `https://eauclaire.online/api/niveau?year=${selectedYear}`
       );
       const niveauData = await niveauResponse.json();
 
@@ -64,7 +64,7 @@ const ConsoTable = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/subscribe", {
+      const response = await fetch("https://eauclaire.online/api/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,13 +86,16 @@ const ConsoTable = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/trigger-alert", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ region }), // Assure-toi que `region` est correctement formaté
-      });
+      const response = await fetch(
+        "https://eauclaire.online/api/trigger-alert",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ region }), // Assure-toi que `region` est correctement formaté
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

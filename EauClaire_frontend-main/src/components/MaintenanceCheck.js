@@ -1,59 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const MaintenanceCheck = () => {
-    const [isMaintenance, setIsMaintenance] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [isMaintenance, setIsMaintenance] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const checkMaintenanceStatus = async () => {
-            try {
-                console.log("Fetching maintenance status...");
-                const response = await fetch('http://127.0.0.1:8000/api/maintenance-status'); // Full URL for testing
-                
-                console.log("Response status:", response.status);
+  useEffect(() => {
+    const checkMaintenanceStatus = async () => {
+      try {
+        console.log("Fetching maintenance status...");
+        const response = await fetch(
+          "https://eauclaire.online/api/maintenance-status"
+        ); // Full URL for testing
 
-                if (!response.ok) {
-                    throw new Error(`HTTP status ${response.status}`);
-                }
+        console.log("Response status:", response.status);
 
-                const data = await response.json();
-                console.log("Maintenance status response data:", data);
+        if (!response.ok) {
+          throw new Error(`HTTP status ${response.status}`);
+        }
 
-                // Set maintenance status based on API response
-                if (data.status === 'en maintenance') {
-                    setIsMaintenance(true);
-                } else {
-                    setIsMaintenance(false);
-                }
-            } catch (error) {
-                console.error('Error checking maintenance status:', error.message);
-                setError(`Error checking maintenance status: ${error.message}`);
-                setIsMaintenance(true);  // Fallback: assume maintenance on error
-            } finally {
-                setLoading(false);
-            }
-        };
+        const data = await response.json();
+        console.log("Maintenance status response data:", data);
 
-        checkMaintenanceStatus();
-    }, []);
+        // Set maintenance status based on API response
+        if (data.status === "en maintenance") {
+          setIsMaintenance(true);
+        } else {
+          setIsMaintenance(false);
+        }
+      } catch (error) {
+        console.error("Error checking maintenance status:", error.message);
+        setError(`Error checking maintenance status: ${error.message}`);
+        setIsMaintenance(true); // Fallback: assume maintenance on error
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    checkMaintenanceStatus();
+  }, []);
 
-    if (error) {
-        return <div>{error}</div>;
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    if (isMaintenance) {
-        console.log("Redirecting to maintenance page...");
-        return <Navigate to="/maintenance" />;
-    }
-    
-    // If not in maintenance, redirect to accueil
-    return <Navigate to="/accueil" />;
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (isMaintenance) {
+    console.log("Redirecting to maintenance page...");
+    return <Navigate to="/maintenance" />;
+  }
+
+  // If not in maintenance, redirect to accueil
+  return <Navigate to="/accueil" />;
 };
 
 export default MaintenanceCheck;
