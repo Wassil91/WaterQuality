@@ -10,7 +10,7 @@ const MaintenanceCheck = () => {
         const checkMaintenanceStatus = async () => {
             try {
                 console.log("Fetching maintenance status...");
-                const response = await fetch('https://eauclaire.online:3030/api/maintenance-status'); // Full URL for testing
+                const response = await fetch('http://127.0.0.1:8000/api/maintenance-status'); // Full URL for testing
                 
                 console.log("Response status:", response.status);
 
