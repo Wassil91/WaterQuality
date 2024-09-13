@@ -117,7 +117,10 @@ const ConsoTable = () => {
                         });
                     }}
                 >
-                    {Array.from({ length: 51 }, (_, i) => 2000 + i).map(year => (
+                    {Array.from({ length: 25 }, (_, i) => 2000 + i).map(year => (
+                        <option key={year} value={year}>{year}</option>
+                    ))}
+                    {Array.from({ length: 6 }, (_, i) => 2025 + i * 5).map(year => (
                         <option key={year} value={year}>{year}</option>
                     ))}
                 </select>
