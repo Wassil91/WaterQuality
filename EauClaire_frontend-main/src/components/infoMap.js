@@ -51,7 +51,7 @@ const InfoMap = () => {
 
     markers.forEach(marker => map.removeLayer(marker));
 
-    fetch(`http://127.0.0.1:3030/api/coords?type=${type}`)
+    fetch(`https://eauclaire.online:3030/api/coords?type=${type}`)
       .then(response => response.json())
       .then(data => {
         setCoords(data);
@@ -86,16 +86,16 @@ const InfoMap = () => {
       const year = selectedYear || '2024';
 
       const biodivData = locationType === 'regions' ? 
-        await fetch(`http://127.0.0.1:3030/api/biodiversite?year=${year}&region=${name}`)
+        await fetch(`https://eauclaire.online:3030/api/biodiversite?year=${year}&region=${name}`)
           .then(response => response.json()) : [];
       const consommationData = locationType === 'departements' || locationType === 'regions' ?
-        await fetch(`http://127.0.0.1:3030/api/consommation?year=${year}&region=${name}`)
+        await fetch(`https://eauclaire.online:3030/api/consommation?year=${year}&region=${name}`)
           .then(response => response.json()) : [];
       const qualiteData = locationType === 'departements' ?
-        await fetch(`http://127.0.0.1:3030/api/qualite-dep?year=${year}&department=${name}`)
+        await fetch(`https://eauclaire.online:3030/api/qualite-dep?year=${year}&department=${name}`)
           .then(response => response.json()) : [];
       const niveauData = locationType === 'regions' ?
-        await fetch(`http://127.0.0.1:3030/api/niveau?year=${year}&region=${name}`)
+        await fetch(`https://eauclaire.online:3030/api/niveau?year=${year}&region=${name}`)
           .then(response => response.json()) : [];
 
       setModalData({

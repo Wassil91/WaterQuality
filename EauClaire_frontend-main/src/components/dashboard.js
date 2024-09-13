@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [allRegions, setAllRegions] = useState([]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3030/api/niveau?year=2000`)
+    fetch(`https://eauclaire.online:3030/api/niveau?year=2000`)
       .then(response => response.json())
       .then(regionData => {
         const uniqueRegions = [...new Set(regionData.map(item => item.Region))];
@@ -28,7 +28,7 @@ const Dashboard = () => {
 
     // Fetch water quality data
     Promise.all(selectedRegions.map(region =>
-      fetch(`http://127.0.0.1:3030/api/qualite-reg?region=${region}`)
+      fetch(`https://eauclaire.online:3030/api/qualite-reg?region=${region}`)
         .then(response => response.json())
     )).then(datas => {
       const years = Array.from({ length: 51 }, (_, i) => 2000 + i);
@@ -54,7 +54,7 @@ const Dashboard = () => {
 
     // Fetch biodiversity data
     Promise.all(selectedRegions.map(region =>
-      fetch(`http://127.0.0.1:3030/api/biodiversite?region=${region}&year=${selectedYear}`)
+      fetch(`https://eauclaire.online:3030/api/biodiversite?region=${region}&year=${selectedYear}`)
         .then(response => response.json())
     )).then(datas => {
       const rivers = [];
@@ -90,7 +90,7 @@ const Dashboard = () => {
 
     // Fetch water risk data
     Promise.all(selectedRegions.map(region =>
-      fetch(`http://127.0.0.1:3030/api/niveau?region=${region}&year=${selectedYear}`)
+      fetch(`https://eauclaire.online:3030/api/niveau?region=${region}&year=${selectedYear}`)
         .then(response => response.json())
     )).then(datas => {
       const regions = [];

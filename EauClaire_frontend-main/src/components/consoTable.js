@@ -14,11 +14,11 @@ const ConsoTable = () => {
         setLoading(true); // Set loading to true before fetching
         try {
             // Fetch water consumption data
-            const consoResponse = await fetch(`http://127.0.0.1:3030/api/consommation?year=${selectedYear}`);
+            const consoResponse = await fetch(`https://eauclaire.online:3030/api/consommation?year=${selectedYear}`);
             const consoData = await consoResponse.json();
 
             // Fetch water level data
-            const niveauResponse = await fetch(`http://127.0.0.1:3030/api/niveau?year=${selectedYear}`);
+            const niveauResponse = await fetch(`https://eauclaire.online:3030/api/niveau?year=${selectedYear}`);
             const niveauData = await niveauResponse.json();
 
             // Merge the water level and consumption data
@@ -60,7 +60,7 @@ const ConsoTable = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3030/api/subscribe', {
+            const response = await fetch('https://eauclaire.online:3030/api/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const ConsoTable = () => {
         }
     
         try {
-            const response = await fetch('http://127.0.0.1:3030/api/trigger-alert', {
+            const response = await fetch('https://eauclaire.online:3030/api/trigger-alert', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
