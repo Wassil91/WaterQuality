@@ -86,16 +86,13 @@ const ConsoTable = () => {
     }
 
     try {
-      const response = await fetch(
-        "https://eauclaire.online/api/trigger-alert",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ region }), // Assure-toi que `region` est correctement formaté
-        }
-      );
+      const response = await fetch("https://eauclaire.online/api/trigger-alert", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ region }), // Assure-toi que `region` est correctement formaté
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

@@ -29,6 +29,8 @@ COLLECTION_BIODIV = "Biodiversite_FR"
 COLLECTION_COORDS = "regions_departments"
 COLLECTION_ALERTS = "AlertSubscriptions"  # New collection for alert subscriptions
 COLLECTION_MAINTENANCE ="Maintenance"
+COLLECTION_QUALIREGIONS ="WaterData_test_2"
+
 
 dbu = DbUtils(DB_PROJET, COLLECTION_NIV)
 dbu2 = DbUtils(DB_PROJET, COLLECTION_QUALI)
@@ -37,6 +39,54 @@ dbu4 = DbUtils(DB_PROJET, COLLECTION_BIODIV)
 dbu_coords = DbUtils(DB_PROJET, COLLECTION_COORDS)
 dbu_alerts = DbUtils(DB_PROJET, COLLECTION_ALERTS)  # Collection for alerts
 dbu_maintenance = DbUtils(DB_PROJET, COLLECTION_MAINTENANCE) 
+dbu_qualiregions = DbUtils(DB_PROJET, COLLECTION_QUALIREGIONS) 
+
+
+@app.route('/api/qualite-reg-test', methods=['GET'])
+def get_quality_by_region():
+    region = request.args.get('region')
+    year = request.args.get('year')
+    colle = dbu_qualiregions.db_connexion()  # Use the method to get the collection
+
+    # Recherche du statut de maintenance
+    collection = colle  # This is your collection object
+
+    print(f"Requested region: {region}, year: {year}")
+
+    # Create query dictionary
+    query = {}
+    if region:
+        query["Regions"] = region
+    if year:
+        try:
+            year = int(year)  # Ensure year is an integer
+            query["DateAnalyse"] = year
+        except ValueError:
+            return jsonify({"error": "Invalid year format"}), 400
+
+    if not query:
+        return jsonify({"error": "Region or year not provided"}), 400
+
+    try:
+        # Ensure collection is properly referenced
+        documents = list(collection.find(query))
+
+        # Manually convert ObjectId to string
+        for doc in documents:
+            if '_id' in doc and isinstance(doc['_id'], ObjectId):
+                doc['_id'] = str(doc['_id'])
+
+        print(f"Documents found: {documents}")
+
+        if not documents:
+            return jsonify({"error": "No data found for the specified region and/or year"}), 404
+
+        return jsonify(documents), 200
+
+    except Exception as e:
+        # Log any exceptions for debugging
+        print(f"An error occurred: {e}")
+        return jsonify({"error": "An error occurred while processing your request"}), 500
 
 
 @app.route('/api/maintenance-status', methods=['GET'])

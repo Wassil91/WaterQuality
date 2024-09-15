@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "./infoMap.css"; // Import your CSS file
-import { RegionModal, DepartmentModal } from "./modal"; // Import the modals
+import React, { useState, useEffect } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import './infoMap.css'; // Import your CSS file
+import { RegionModal, DepartmentModal } from './modal'; // Import the modals
 
 const defaultIcon = new L.Icon({
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   shadowSize: [41, 41],
@@ -16,19 +16,19 @@ const defaultIcon = new L.Icon({
 
 const InfoMap = () => {
   const [coords, setCoords] = useState([]);
-  const [locationType, setLocationType] = useState("regions");
-  const [selectedYear, setSelectedYear] = useState("2024");
+  const [locationType, setLocationType] = useState('regions');
+  const [selectedYear, setSelectedYear] = useState('2024');
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
-  const [modalTitle, setModalTitle] = useState("");
+  const [modalTitle, setModalTitle] = useState('');
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
-    const initialMap = L.map("map").setView([46, 2], 6);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    const initialMap = L.map('map').setView([46, 2], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: "© OpenStreetMap contributors",
+      attribution: '© OpenStreetMap contributors',
     }).addTo(initialMap);
 
     setMap(initialMap);
@@ -49,78 +49,54 @@ const InfoMap = () => {
   const fetchDataAndSetMarkers = (type, year) => {
     if (!map) return;
 
-    markers.forEach((marker) => map.removeLayer(marker));
+    markers.forEach(marker => map.removeLayer(marker));
 
     fetch(`https://eauclaire.online/api/coords?type=${type}`)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         setCoords(data);
 
-        const newMarkers = data
-          .map((item) => {
-            const lat =
-              type === "regions"
-                ? parseFloat(item.Region_Lat)
-                : parseFloat(item.Department_Lat);
-            const lng =
-              type === "regions"
-                ? parseFloat(item.Region_Lng)
-                : parseFloat(item.Department_Lng);
-            const name = type === "regions" ? item.Regions : item.Departements;
+        const newMarkers = data.map((item) => {
+          const lat = type === 'regions' ? parseFloat(item.Region_Lat) : parseFloat(item.Department_Lat);
+          const lng = type === 'regions' ? parseFloat(item.Region_Lng) : parseFloat(item.Department_Lng);
+          const name = type === 'regions' ? item.Regions : item.Departements;
 
-            if (!isNaN(lat) && !isNaN(lng)) {
-              const marker = L.marker([lat, lng], { icon: defaultIcon })
-                .bindPopup(
-                  `<b>${
-                    type === "regions" ? "Région" : "Département"
-                  }:</b> ${name}`
-                )
-                .on("click", () => {
-                  fetchModalData(name);
-                  setModalTitle(name);
-                  setModalOpen(true);
-                });
+          if (!isNaN(lat) && !isNaN(lng)) {
+            const marker = L.marker([lat, lng], { icon: defaultIcon })
+              .bindPopup(`<b>${type === 'regions' ? 'Région' : 'Département'}:</b> ${name}`)
+              .on('click', () => {
+                fetchModalData(name);
+                setModalTitle(name);
+                setModalOpen(true);
+              });
 
-              marker.addTo(map);
-              return marker;
-            }
-            return null;
-          })
-          .filter((marker) => marker !== null);
+            marker.addTo(map);
+            return marker;
+          }
+          return null;
+        }).filter(marker => marker !== null);
 
         setMarkers(newMarkers);
       })
-      .catch((error) => console.error("Error fetching coordinates:", error));
+      .catch(error => console.error('Error fetching coordinates:', error));
   };
 
   const fetchModalData = async (name) => {
     try {
-      const year = selectedYear || "2024";
+      const year = selectedYear || '2024';
 
-      const biodivData =
-        locationType === "regions"
-          ? await fetch(
-              `https://eauclaire.online/api/biodiversite?year=${year}&region=${name}`
-            ).then((response) => response.json())
-          : [];
-      const consommationData =
-        locationType === "departements" || locationType === "regions"
-          ? await fetch(
-              `https://eauclaire.online/api/consommation?year=${year}&region=${name}`
-            ).then((response) => response.json())
-          : [];
-      const qualiteData =
-        locationType === "departements"
-          ? await fetch(
-              `https://eauclaire.online/api/qualite-dep?year=${year}&department=${name}`
-            ).then((response) => response.json())
-          : [];
-      const niveauData =
-        locationType === "regions"
-          ? await fetch(
-              `https://eauclaire.online/api/niveau?year=${year}&region=${name}`
-            ).then((response) => response.json())
-          : [];
+      const biodivData = locationType === 'regions' ? 
+        await fetch(`https://eauclaire.online/api/biodiversite?year=${year}&region=${name}`)
+          .then(response => response.json()) : [];
+      const consommationData = locationType === 'departements' || locationType === 'regions' ?
+        await fetch(`https://eauclaire.online/api/consommation?year=${year}&region=${name}`)
+          .then(response => response.json()) : [];
+      const qualiteData = locationType === 'departements' ?
+        await fetch(`https://eauclaire.online/api/qualite-dep?year=${year}&department=${name}`)
+          .then(response => response.json()) : [];
+      const niveauData = locationType === 'regions' ?
+        await fetch(`https://eauclaire.online/api/niveau?year=${year}&region=${name}`)
+          .then(response => response.json()) : [];
 
       setModalData({
         biodiversite: biodivData,
@@ -129,7 +105,7 @@ const InfoMap = () => {
         niveau: niveauData,
       });
     } catch (error) {
-      console.error("Error fetching detailed data:", error);
+      console.error('Error fetching detailed data:', error);
     }
   };
 
@@ -168,33 +144,22 @@ const InfoMap = () => {
         <label>
           <p>Sélectionner l'année :</p>
           <select onChange={handleYearChange} value={selectedYear}>
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
+            {years.map(year => (
+              <option key={year} value={year}>{year}</option>
             ))}
           </select>
         </label>
       </div>
       <div id="map" className="map"></div>
-      {locationType === "regions" && (
-        <RegionModal
-          isOpen={modalOpen}
-          onClose={closeModal}
-          title={modalTitle}
-          data={modalData}
-        />
+      {locationType === 'regions' && (
+        <RegionModal isOpen={modalOpen} onClose={closeModal} title={modalTitle} data={modalData} />
       )}
-      {locationType === "departements" && (
-        <DepartmentModal
-          isOpen={modalOpen}
-          onClose={closeModal}
-          title={modalTitle}
-          data={modalData}
-        />
+      {locationType === 'departements' && (
+        <DepartmentModal isOpen={modalOpen} onClose={closeModal} title={modalTitle} data={modalData} />
       )}
     </div>
   );
 };
 
 export default InfoMap;
+
