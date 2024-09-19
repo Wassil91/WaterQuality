@@ -20,13 +20,17 @@ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/multive
 sudo apt-get update
 sudo apt-get install -y mongodb-org   # Mettre à jour les paquets et installer MongoDB
 
-### IONOS VPS pour le déploiement (payant)
+### IONOS VPS pour le déploiement (payant) :
+
+https://www.ionos.fr/
+
+
 ### Nginx pour servir l'application web, si vous ne l'avez pas :
 
 sudo apt update
 sudo apt install -y nginx
 
-### Monit pour un aperçu en temps réel de tous les services et process qui tournent sur le VPS, si vous ne l'avez pas :
+### Monit pour un aperçu en temps réel des services et process qui tournent sur le VPS, si vous ne l'avez pas :
 
 sudo apt install -y monit
 
