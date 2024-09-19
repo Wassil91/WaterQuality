@@ -179,34 +179,34 @@ set daemon 60                # Vérifie toutes les 60 secondes
 set httpd port 2812          # Port d'accès à l'interface web de Monit
     allow admin:monit       # Authentification
 
-# Vérification de Nginx
-check process nginx with pidfile /run/nginx.pid
+
+check process nginx with pidfile /run/nginx.pid   # Vérification de Nginx
     start program = "/usr/sbin/service nginx start"
     stop program = "/usr/sbin/service nginx stop"
     if failed host 127.0.0.1 port 80 protocol http
        with timeout 15 seconds then restart
 
-# Vérification de l'application front-end
-check process frontend with pidfile /var/run/frontend.pid
+
+check process frontend with pidfile /var/run/frontend.pid     # Vérification de l'application front-end
     start program = "/path/to/start_frontend_script.sh"
     stop program = "/path/to/stop_frontend_script.sh"
     if not running then restart
 
-# Vérification de l'API Flask
-check process api_flask with pidfile /var/run/api_flask.pid
+
+check process api_flask with pidfile /var/run/api_flask.pid      # Vérification de l'API Flask
     start program = "/path/to/start_api_flask_script.sh"
     stop program = "/path/to/stop_api_flask_script.sh"
     if failed host 127.0.0.1 port 5000 protocol http
        with timeout 15 seconds then restart
 
-# Vérification de MongoDB
-check process mongodb with pidfile /var/run/mongodb.pid
+
+check process mongodb with pidfile /var/run/mongodb.pid       # Vérification de MongoDB
     start program = "/usr/sbin/service mongodb start"
     stop program = "/usr/sbin/service mongodb stop"
     if failed host 127.0.0.1 port 27017 then restart
 
-# Vérification de l'utilisation des ressources
-check system localhost
+
+check system localhost                                   # Vérification de l'utilisation des ressources
     if memory usage > 90% then alert
     if cpu usage > 90% then alert
     
