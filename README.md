@@ -2,7 +2,7 @@
 
 ## 📝 Description du projet
 
-EauClaire est une application web complète qui offre une interface utilisateur intuitive pour interagir avec des données liées à l'eau. Ce projet est divisé en deux parties : le **back-end** et le **front-end**.
+EauClaire est une application web complète qui offre une interface utilisateur intuitive pour interagir avec des données liées à l'eau, que ça soit la qualité de l'eau, la consommation d'eau, la biodiversité aquatique ou bien encore le niveau des eaux. Ce projet est divisé en deux parties : le **back-end** et le **front-end**.
 
 - **Back-end :** Développé avec **Flask**, il gère les API, les connexions à la base de données **MongoDB**, et les opérations de traitement des données.
 - **Front-end :** Créé avec **React.js**, il fournit une expérience utilisateur dynamique et interactive, se connectant au back-end via des appels API.
