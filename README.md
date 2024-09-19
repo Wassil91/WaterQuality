@@ -25,6 +25,9 @@ Ce README sert d'introduction globale au projet EauClaire. Des README détaillé
 
 Voici quelques vidéos montrant les fonctionnalités du site, le monitoring & la gestion des incidents avec un exemple d'une fausse erreur :
 
+###  Accès au VPS  : Via VSCode en SSH grâce à Remote Explorer
+
+https://github.com/user-attachments/assets/99a9b42d-196a-4a9c-98bd-c27b9c38e525
 
 ###  Page d'accueil  :
 
