@@ -6,10 +6,30 @@ Ce projet représente le front-end de l'application, construit en React.js, inte
 
 ## 🛠 Prérequis
 
-Node.js (version 14.x ou supérieure)
-MongoDB (local ou distant)
-IONOS VPS pour le déploiement (payant)
-Nginx pour servir l'application web
+### Node.js (version 14.x ou supérieure), si vous le l'avez pas : 
+
+curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+### MongoDB (local ou distant), si vous ne l'avez pas :
+
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add - # Importer la clé publique pour le dépôt MongoDB
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/multiverse amd64 MongoDB-org 6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list  # Ajouter le dépôt MongoDB à la liste des sources
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org   # Mettre à jour les paquets et installer MongoDB
+
+### IONOS VPS pour le déploiement (payant)
+### Nginx pour servir l'application web, si vous ne l'avez pas :
+
+sudo apt update
+sudo apt install -y nginx
+
+### Monit pour un aperçu en temps réel de tous les services et process qui tournent sur le VPS, si vous ne l'avez pas :
+
+sudo apt install -y monit
+
 
 ## 📦 Dépendances
 
