@@ -1,44 +1,44 @@
-📘 #README: Front-end React
+# 📘 EauClaire_frontend
 
-##📝 Description
+## 📝 Description
 
 Ce projet représente le front-end de l'application, construit en React.js et interagit avec l'API Flask.
 
-##🛠 Prérequis
+## 🛠 Prérequis
 
 Node.js (version 14.x ou supérieure)
 MongoDB (local ou distant)
 IONOS VPS pour le déploiement
 Nginx pour servir l'application statique
 
-📦 Dépendances
+## 📦 Dépendances
 
 Pour installer les dépendances du projet, exécutez :
 
 npm install
 
-🚀 Installation locale
+## 🚀 Installation locale
 
-1. Cloner le dépôt
+### 1. Cloner le dépôt
 
 Clonez ce dépôt sur votre machine locale :
 
 git clone <URL_DU_REPO>
 cd <dossier_du_projet>
 
-2. Installer les dépendances
+### 2. Installer les dépendances
 
 Installez les dépendances Node.js avec :
 
 npm install
 
-3. Configurer l'API
+### 3. Configurer l'API
 
 Modifiez le fichier src/config.js pour définir l'URL de l'API Flask :
 
 const API_URL = 'http://localhost:5000';
 
-4. Lancer l'application
+### 4. Lancer l'application
 
 Démarrez le serveur de développement avec :
 
@@ -47,19 +47,19 @@ npm start
 L'application sera disponible à http://localhost:3000.
 
 
-💻 Accès au VPS avec Visual Studio Code et SSH
+## 💻 Accès au VPS avec Visual Studio Code et SSH
 
-1. Installation des extensions nécessaires
+### 1. Installation des extensions nécessaires
 
 Avant de vous connecter à votre VPS depuis Visual Studio Code (VS Code), assurez-vous que les extensions suivantes sont installées :
 
-a. Remote - SSH (pour vous connecter à distance)
+#### a. Remote - SSH (pour vous connecter à distance)
 
 Ouvrez VS Code.
 Accédez à l'onglet Extensions (icône de boîte dans la barre latérale ou Ctrl+Shift+X).
 Dans la barre de recherche, tapez "Remote - SSH" et installez l'extension.
 
-b. SSH (si ce n'est pas encore installé)
+#### b. SSH (si ce n'est pas encore installé)
 
 Si vous n'avez pas encore SSH installé sur votre machine locale, installez-le :
 
@@ -69,19 +69,19 @@ sudo apt-get install openssh-client
 
 Sur Windows : Installez OpenSSH via les fonctionnalités facultatives de Windows ou utilisez le terminal intégré à VS Code.
 
-2. Connexion au VPS via Remote Explorer
+### 2. Connexion au VPS via Remote Explorer
 
 Une fois que les extensions sont installées, vous pouvez configurer une connexion à votre VPS.
 
-a. Ouvrir le Remote Explorer
+#### a. Ouvrir le Remote Explorer
 
 Dans la barre latérale de gauche de VS Code, cliquez sur l'icône Remote Explorer.
 
-b. Ajouter une nouvelle connexion SSH
+#### b. Ajouter une nouvelle connexion SSH
 
 En haut de la fenêtre Remote Explorer, cliquez sur le bouton + pour ajouter une nouvelle connexion SSH.
 
-c. Saisir les informations de connexion
+#### c. Saisir les informations de connexion
 
 Dans la barre de recherche en haut de l'écran, entrez la commande SSH pour vous connecter à votre VPS :
 
@@ -89,11 +89,11 @@ ssh root@87.106.116.246
 
 Remarque : Remplacez root par l'utilisateur que vous utilisez si ce n'est pas "root". Remplacez également l'adresse IP par celle de votre VPS si elle est différente.
 
-d. Entrer le mot de passe
+#### d. Entrer le mot de passe
 
 Une fois la commande SSH exécutée, VS Code vous demandera votre mot de passe. Entrez-le pour établir la connexion.
 
-3. Gestion des informations VPS
+### 3. Gestion des informations VPS
 
 En cas d'oubli de certaines informations (comme l'adresse IP ou le mot de passe), vous pouvez retrouver ces informations sur votre compte client IONOS :
 
@@ -104,7 +104,7 @@ L'adresse IP de votre VPS.
 Le nom d'utilisateur pour SSH (généralement root par défaut).
 Si nécessaire, réinitialisez ou retrouvez votre mot de passe.
 
-4. Sauvegarder la configuration SSH pour la prochaine fois
+### 4. Sauvegarder la configuration SSH pour la prochaine fois
 
 Pour ne pas avoir à retaper l’adresse IP à chaque fois, vous pouvez ajouter la configuration à votre fichier ~/.ssh/config (ou créer ce fichier s'il n'existe pas encore) :
 
@@ -120,9 +120,9 @@ Cette section complète le processus de connexion à votre VPS à l'aide de Visu
  vous permettant de travailler directement sur votre serveur distant pour gérer votre application et votre infrastructure.
 
 
-🌐 Déploiement sur VPS (IONOS)
+## 🌐 Déploiement sur VPS (IONOS)
 
-1. Construire l'application
+### 1. Construire l'application
 
 Avant de déployer sur le VPS, construisez les fichiers statiques de l'application :
 
@@ -130,7 +130,7 @@ npm run build
 
 Cela créera un dossier build/ contenant les fichiers prêts à être déployés.
 
-2. Configurer Nginx
+### 2. Configurer Nginx
 
 Sur votre VPS, copiez les fichiers du dossier build/ dans le répertoire Nginx :
 
@@ -162,18 +162,18 @@ Redémarrez Nginx :
 
 sudo systemctl restart nginx
 
-3. Monitoring avec Monit et GLPI
+### 3. Monitoring avec Monit et GLPI
 
 Tout comme pour le back-end, Monit surveille l'état du serveur Nginx et du front-end. Les incidents sont gérés via l'intégration Monit-GLPI.
 
-🕒 Gestion des tâches planifiées (Cron)
+## 🕒 Gestion des tâches planifiées (Cron)
 
 Pour automatiser l'exécution de nos deux scripts Python toutes les 5 minutes et enregistrer les sorties dans un fichier de log, voici comment procéder avec cron.
 
 Avant d'exécuter les scripts Python, il est crucial de s'assurer que certains prérequis sont respectés,
 notamment l'accès aux services locaux et la gestion des tokens API et de session dans GLPI.
 
-1. Vérification des accès à Monit et GLPI
+### 1. Vérification des accès à Monit et GLPI
 
 Avant d'exécuter les scripts Python, il est essentiel de vérifier que :
 
@@ -201,9 +201,9 @@ S'assurer que l'API est bien activée avec :
 API Rest activé : Oui.
 Activer l'authentification avec un jeton externe : Oui.
 
-2. Gestion des tokens pour GLPI
+### 2. Gestion des tokens pour GLPI
 
-a. Vérification et remplacement du jeton d'application (App Token)
+#### a. Vérification et remplacement du jeton d'application (App Token)
 
 Si vous rencontrez une erreur de token en exécutant le script creation_alerte_mail_et_incident_GLPI.py, il faut générer un nouveau jeton d'application.
 
@@ -213,7 +213,7 @@ Remplacez le jeton dans le script creation_alerte_mail_et_incident_GLPI.py à l'
 
 app_token = "NOUVEAU_JETON_APP"
 
-b. Génération du token de session
+#### b. Génération du token de session
 
 Si nécessaire, générez un nouveau Session Token à l'aide d'un script spécifique. Voici un exemple de script pour obtenir un Session Token :
 
@@ -223,13 +223,13 @@ Cela va générer un nouveau Session Token, que vous devrez insérer dans le scr
 
 session_token = "NOUVEAU_JETON_SESSION"
 
-3. Éditer la configuration cron
+### 3. Éditer la configuration cron
 
 Sur votre serveur, ouvrez le fichier crontab pour le modifier :
 
 crontab -e
 
-4. Ajouter la commande cron
+### 4. Ajouter la commande cron
 
 Ajoutez la ligne suivante pour exécuter nos deux scripts Python toutes les 5 minutes et enregistrer la sortie et les erreurs dans un fichier de log :
 
@@ -243,13 +243,13 @@ Explication :
 /path/to/creation_alerte_mail_et_incident_GLPI.py : Chemin vers votre script Python qui crée des alertes mail et gère les incidents dans GLPI.
 >> /path/to/logfile.log 2>&1 : Redirige à la fois la sortie standard (stdout) et les erreurs (stderr) vers le fichier de log, ici logfile.log.
 
-5. Vérification des logs
+### 5. Vérification des logs
 
 Vous pouvez surveiller le fichier de log pour vous assurer que les scripts s'exécutent correctement et qu'aucune erreur n'est générée :
 
 tail -f /path/to/logfile.log
 
-6. Redémarrer le service cron
+### 6. Redémarrer le service cron
 
 Si vous souhaitez vous assurer que les nouvelles configurations cron sont bien appliquées, redémarrez le service cron :
 
