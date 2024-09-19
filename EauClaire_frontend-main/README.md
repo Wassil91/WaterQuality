@@ -1,5 +1,8 @@
 # 📘 EauClaire_frontend
 
+## 🎥 Aperçu des fonctionnalités 
+
+
 ## 📝 Description
 
 Ce projet représente le front-end de l'application, construit en React.js, interagit avec l'API Flask, monitoré avec Monit qui est relié à GLPI pour la gestion des incidents et automatisé par Cron.
