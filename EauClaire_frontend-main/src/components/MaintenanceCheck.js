@@ -1,3 +1,4 @@
+import API_BASE_URL from '../apiConfig';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const MaintenanceCheck = () => {
         const checkMaintenanceStatus = async () => {
             try {
                 console.log("Fetching maintenance status...");
-                const response = await fetch('https://eauclaire.online/api/maintenance-status'); // Full URL for testing
+                const response = await fetch(`${API_BASE_URL}/maintenance-status`); // Full URL for testing
                 
                 console.log("Response status:", response.status);
 

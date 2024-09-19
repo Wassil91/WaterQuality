@@ -1,3 +1,4 @@
+import API_BASE_URL from '../apiConfig';
 import React, { useState, useEffect } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -14,7 +15,7 @@ const Dashboard = () => {
   const [allRegions, setAllRegions] = useState([]);
 
   useEffect(() => {
-    fetch(`https://eauclaire.online/api/niveau?year=2000`)
+    fetch(`${API_BASE_URL}/niveau?year=2000`)
       .then(response => response.json())
       .then(regionData => {
         const uniqueRegions = [...new Set(regionData.map(item => item.Region))];
@@ -28,7 +29,7 @@ const Dashboard = () => {
 
     // Fetch water quality data
     Promise.all(selectedRegions.map(region =>
-      fetch(`https://eauclaire.online/api/qualite-reg-test?region=${region}`)
+      fetch(`${API_BASE_URL}/qualite-reg-test?region=${region}`)
         .then(response => response.json())
     )).then(datas => {
       const years = Array.from({ length: 51 }, (_, i) => 2000 + i);
@@ -54,7 +55,7 @@ const Dashboard = () => {
 
     // Fetch biodiversity data
     Promise.all(selectedRegions.map(region =>
-      fetch(`https://eauclaire.online/api/biodiversite?region=${region}&year=${selectedYear}`)
+      fetch(`${API_BASE_URL}/biodiversite?region=${region}&year=${selectedYear}`)
         .then(response => response.json())
     )).then(datas => {
       const rivers = [];
@@ -90,7 +91,7 @@ const Dashboard = () => {
 
     // Fetch water risk data
     Promise.all(selectedRegions.map(region =>
-      fetch(`https://eauclaire.online/api/niveau?region=${region}&year=${selectedYear}`)
+      fetch(`${API_BASE_URL}/niveau?region=${region}&year=${selectedYear}`)
         .then(response => response.json())
     )).then(datas => {
       const regions = [];

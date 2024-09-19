@@ -1,3 +1,4 @@
+import API_BASE_URL from '../apiConfig';
 import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -51,7 +52,7 @@ const InfoMap = () => {
 
     markers.forEach(marker => map.removeLayer(marker));
 
-    fetch(`https://eauclaire.online/api/coords?type=${type}`)
+    fetch(`${API_BASE_URL}/coords?type=${type}`)
       .then(response => response.json())
       .then(data => {
         setCoords(data);
@@ -86,16 +87,16 @@ const InfoMap = () => {
       const year = selectedYear || '2024';
 
       const biodivData = locationType === 'regions' ? 
-        await fetch(`https://eauclaire.online/api/biodiversite?year=${year}&region=${name}`)
+        await fetch(`${API_BASE_URL}/biodiversite?year=${year}&region=${name}`)
           .then(response => response.json()) : [];
       const consommationData = locationType === 'departements' || locationType === 'regions' ?
-        await fetch(`https://eauclaire.online/api/consommation?year=${year}&region=${name}`)
+        await fetch(`${API_BASE_URL}/consommation?year=${year}&region=${name}`)
           .then(response => response.json()) : [];
       const qualiteData = locationType === 'departements' ?
-        await fetch(`https://eauclaire.online/api/qualite-dep?year=${year}&department=${name}`)
+        await fetch(`${API_BASE_URL}/qualite-dep?year=${year}&department=${name}`)
           .then(response => response.json()) : [];
       const niveauData = locationType === 'regions' ?
-        await fetch(`https://eauclaire.online/api/niveau?year=${year}&region=${name}`)
+        await fetch(`${API_BASE_URL}/niveau?year=${year}&region=${name}`)
           .then(response => response.json()) : [];
 
       setModalData({

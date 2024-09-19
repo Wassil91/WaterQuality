@@ -1,3 +1,4 @@
+import API_BASE_URL from '../apiConfig';
 import React, { useState, useEffect, useCallback } from "react";
 import "./ConsoTable.css"; // Importing the CSS file
 
@@ -15,13 +16,13 @@ const ConsoTable = () => {
     try {
       // Fetch water consumption data
       const consoResponse = await fetch(
-        `https://eauclaire.online/api/consommation?year=${selectedYear}`
+        `${API_BASE_URL}/consommation?year=${selectedYear}`
       );
       const consoData = await consoResponse.json();
 
       // Fetch water level data
       const niveauResponse = await fetch(
-        `https://eauclaire.online/api/niveau?year=${selectedYear}`
+        `${API_BASE_URL}/niveau?year=${selectedYear}`
       );
       const niveauData = await niveauResponse.json();
 
@@ -64,7 +65,7 @@ const ConsoTable = () => {
     }
 
     try {
-      const response = await fetch("https://eauclaire.online/api/subscribe", {
+      const response = await fetch("`${API_BASE_URL}/subscribe`", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +87,7 @@ const ConsoTable = () => {
     }
 
     try {
-      const response = await fetch("https://eauclaire.online/api/trigger-alert", {
+      const response = await fetch("`${API_BASE_URL}/trigger-alert`", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
