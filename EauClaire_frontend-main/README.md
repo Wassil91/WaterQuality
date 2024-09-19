@@ -64,7 +64,7 @@ const API_URL = 'http://localhost:5000';
 
 ### 4. Lancer l'application
 
-Démarrez le serveur de développement avec :
+Assurez-vous d'être dans le même dossier que "App.js", puis démarrez le serveur de développement avec :
 
 npm start
 
