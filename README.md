@@ -1,4 +1,4 @@
-# 🌊 EauClaire
+# 🌊 EauClaire 
 
 ## 📝 Description du projet
 
@@ -18,7 +18,7 @@ Ce README sert d'introduction globale au projet EauClaire. Des README détaillé
 ## 🚀 Fonctionnalités
 
 - **Carte interactive :** Visualisez les données sur une carte avec des filtres sur l'année (2000 à 2050) et l'échelle (régionale ou départementale).
-- **Tableau de données :** Accédez à un tableau de données filtrable par année (2000 à 2050).
+- **Tableau de données des consommations /habitants :** Accédez à un tableau de données filtrable par année (2000 à 2050).
 - **Dashboard :** Consultez des graphiques pertinents avec des options de filtrage sur la région, les régions de France avec un filtre sur l'année (2000 à 2050).
 
 ## 🎥 Aperçu en vidéo
