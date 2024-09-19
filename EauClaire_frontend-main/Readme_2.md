@@ -8,8 +8,8 @@ Ce projet représente le front-end de l'application, construit en React.js, inte
 
 Node.js (version 14.x ou supérieure)
 MongoDB (local ou distant)
-IONOS VPS pour le déploiement
-Nginx pour servir l'application statique
+IONOS VPS pour le déploiement (payant)
+Nginx pour servir l'application web
 
 ## 📦 Dépendances
 
