@@ -1,10 +1,10 @@
-📘 README: Front-end React
+#📘 README: Front-end React
 
-📝 Description
+##📝 Description
 
 Ce projet représente le front-end de l'application, construit en React.js et interagit avec l'API Flask.
 
-🛠 Prérequis
+##🛠 Prérequis
 
 Node.js (version 14.x ou supérieure)
 MongoDB (local ou distant)
