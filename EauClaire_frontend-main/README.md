@@ -166,7 +166,7 @@ sudo nano /etc/nginx/sites-available/default
 
 Modifiez ou ajoutez les lignes suivantes :
 
-
+```bash
 server {
     listen 80;
     server_name votre-domaine.com;
@@ -179,6 +179,7 @@ server {
         proxy_pass http://127.0.0.1:8000;
     }
 }
+```
 
 
 Redémarrez Nginx :
