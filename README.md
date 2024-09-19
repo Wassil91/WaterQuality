@@ -21,9 +21,9 @@ Ce README sert d'introduction globale au projet EauClaire. Des README détaillé
 - **Tableau de données :** Accédez à un tableau de données filtrable par année (2000 à 2050).
 - **Dashboard :** Consultez des graphiques pertinents avec des options de filtrage sur la région, les régions de France avec un filtre sur l'année (2000 à 2050).
 
-## 🎥 Aperçu de la vidéo
+## 🎥 Aperçu en vidéo
 
-Voici quelques vidéos montrant les fonctionnalités du site :
+Voici quelques vidéos montrant les fonctionnalités du site, le monitoring & la gestion des incidents avec un exemple d'une fausse erreur :
 
 
 ###  Page d'accueil  :
@@ -34,16 +34,27 @@ https://github.com/user-attachments/assets/7af15ab8-e42a-4a42-9136-8a8968e33a3a
 
 https://github.com/user-attachments/assets/a0228061-d27c-41aa-9a94-0139080c7cb2
 
-### Fonctionnalité 2 : Tableau de Données
+### Fonctionnalité 2 : Tableau données de consommation
 
 https://github.com/user-attachments/assets/329116c1-7d3b-45a6-8df1-eb43e8280531
 
+### Fonctionnalité 3 : Réception alerte
+
 https://github.com/user-attachments/assets/2b44ec88-0ca1-4305-859d-659f94402c82
 
-### Fonctionnalité 3 : Dashboard
+### Fonctionnalité 4 : Dashboard
 
 https://github.com/user-attachments/assets/2ee3a5ba-f983-4cd9-8591-993a04e02001
 
+### Monitoring : avec Monit
+
+https://github.com/user-attachments/assets/847303ac-ae81-46c7-b0dc-5a3e6db9e868
+
+### Gestion des alertes & incidents : avec GLPI 
+
+Exemple d'une erreur volontaire, en stoppant le service nginx manuellement :
+
+https://github.com/user-attachments/assets/602a7a93-dff1-4b05-b190-c2fa28fd0f09
 
 ## 🛠 Prérequis
 
