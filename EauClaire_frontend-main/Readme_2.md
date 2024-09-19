@@ -145,7 +145,7 @@ Modifiez ou ajoutez les lignes suivantes :
 server {
     listen 80;
     server_name votre-domaine.com;
-
+    
     root /var/www/html;
     index index.html;
 
@@ -165,6 +165,73 @@ sudo systemctl restart nginx
 ### 3. Monitoring avec Monit et GLPI
 
 Tout comme pour le back-end, Monit surveille l'état du serveur Nginx et du front-end. Les incidents sont gérés via l'intégration Monit-GLPI.
+
+Exemple de  exemple de configuration de Monit pour surveiller Nginx, le front-end de l'application et d'autres services pertinents :
+
+Ouvrir le fichier de conf de monit : 
+
+sudo nano /etc/monit/monitrc
+
+Vérifier ou ajouter :
+
+set daemon 60                # Vérifie toutes les 60 secondes
+
+set httpd port 2812          # Port d'accès à l'interface web de Monit
+    allow admin:monit       # Authentification
+
+# Vérification de Nginx
+check process nginx with pidfile /run/nginx.pid
+    start program = "/usr/sbin/service nginx start"
+    stop program = "/usr/sbin/service nginx stop"
+    if failed host 127.0.0.1 port 80 protocol http
+       with timeout 15 seconds then restart
+
+# Vérification de l'application front-end
+check process frontend with pidfile /var/run/frontend.pid
+    start program = "/path/to/start_frontend_script.sh"
+    stop program = "/path/to/stop_frontend_script.sh"
+    if not running then restart
+
+# Vérification de l'API Flask
+check process api_flask with pidfile /var/run/api_flask.pid
+    start program = "/path/to/start_api_flask_script.sh"
+    stop program = "/path/to/stop_api_flask_script.sh"
+    if failed host 127.0.0.1 port 5000 protocol http
+       with timeout 15 seconds then restart
+
+# Vérification de MongoDB
+check process mongodb with pidfile /var/run/mongodb.pid
+    start program = "/usr/sbin/service mongodb start"
+    stop program = "/usr/sbin/service mongodb stop"
+    if failed host 127.0.0.1 port 27017 then restart
+
+# Vérification de l'utilisation des ressources
+check system localhost
+    if memory usage > 90% then alert
+    if cpu usage > 90% then alert
+    
+Explications des sections :
+
+set daemon : Définit la fréquence de vérification des services.
+set httpd : Configure l'accès à l'interface de Monit avec authentification.
+check process : Définit les processus à surveiller (Nginx, front-end, API Flask, MongoDB).
+start program / stop program : Indique les commandes pour démarrer et arrêter les services.
+if failed : Conditions de redémarrage en cas d'échec de la vérification.
+check system : Surveille l'utilisation des ressources système.
+
+Sauvegardez et quittez (CTRL + X ensuite Yes)
+
+Pour tester si la configuration est bonne :
+
+sudo monit -t
+
+Si la configuration est correcte, tu peux redémarrer Monit avec la commande suivante :
+
+sudo systemctl restart monit
+
+Pour vérifier que Monit fonctionne correctement après le redémarrage, utilise :
+
+sudo systemctl status monit
 
 ## 🕒 Gestion des tâches planifiées (Cron)
 
