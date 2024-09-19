@@ -8,17 +8,21 @@ Ce projet représente le front-end de l'application, construit en React.js, inte
 
 ### Node.js (version 14.x ou supérieure), si vous le l'avez pas : 
 
+```bash
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install -y nodejs
+```
 
 ### MongoDB (local ou distant), si vous ne l'avez pas :
 
+```bash
 wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add - # Importer la clé publique pour le dépôt MongoDB
 
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/multiverse amd64 MongoDB-org 6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list  # Ajouter le dépôt MongoDB à la liste des sources
 
 sudo apt-get update
 sudo apt-get install -y mongodb-org   # Mettre à jour les paquets et installer MongoDB
+```
 
 ### IONOS VPS pour le déploiement (payant) :
 
@@ -27,47 +31,54 @@ https://www.ionos.fr/
 
 ### Nginx pour servir l'application web, si vous ne l'avez pas :
 
+```bash
 sudo apt update
 sudo apt install -y nginx
+```
 
 ### Monit pour un aperçu en temps réel des services et process qui tournent sur le VPS, si vous ne l'avez pas :
 
+```bash
 sudo apt install -y monit
-
+```
 
 ## 📦 Dépendances
 
 Pour installer les dépendances du projet, exécutez :
 
+```bash
 npm install
+```
 
 ## 🚀 Installation locale
 
 ### 1. Cloner le dépôt
 
 Clonez ce dépôt sur votre machine locale :
-
+```bash
 git clone <URL_DU_REPO>
 cd <dossier_du_projet>
+```
 
 ### 2. Installer les dépendances
 
 Installez les dépendances Node.js avec :
-
+```bash
 npm install
-
+```
 ### 3. Configurer l'API
 
 Modifiez le fichier src/config.js pour définir l'URL de l'API Flask :
-
+```bash
 const API_URL = 'http://localhost:5000';
-
+```
 ### 4. Lancer l'application
 
 Assurez-vous d'être dans le même dossier que "App.js", puis démarrez le serveur de développement avec :
 
+```bash
 npm start
-
+```
 L'application sera disponible à http://localhost:3000.
 
 
@@ -88,9 +99,9 @@ Dans la barre de recherche, tapez "Remote - SSH" et installez l'extension.
 Si vous n'avez pas encore SSH installé sur votre machine locale, installez-le :
 
 Sur Ubuntu/Debian :
-
+```bash
 sudo apt-get install openssh-client
-
+```
 Sur Windows : Installez OpenSSH via les fonctionnalités facultatives de Windows ou utilisez le terminal intégré à VS Code.
 
 ### 2. Connexion au VPS via Remote Explorer
@@ -108,9 +119,9 @@ En haut de la fenêtre Remote Explorer, cliquez sur le bouton + pour ajouter une
 #### c. Saisir les informations de connexion
 
 Dans la barre de recherche en haut de l'écran, entrez la commande SSH pour vous connecter à votre VPS :
-
+```bash
 ssh root@87.106.116.246
-
+```
 Remarque : Remplacez root par l'utilisateur que vous utilisez si ce n'est pas "root". Remplacez également l'adresse IP par celle de votre VPS si elle est différente.
 
 #### d. Entrer le mot de passe
@@ -131,14 +142,16 @@ Si nécessaire, réinitialisez ou retrouvez votre mot de passe.
 ### 4. Sauvegarder la configuration SSH pour la prochaine fois
 
 Pour ne pas avoir à retaper l’adresse IP à chaque fois, vous pouvez ajouter la configuration à votre fichier ~/.ssh/config (ou créer ce fichier s'il n'existe pas encore) :
-
+```bash
 Host mon-vps
     HostName 87.106.116.246
     User root
-
+```
 Ensuite, vous pourrez vous connecter simplement avec :
 
+```bash
 ssh mon-vps
+```
 
 Cette section complète le processus de connexion à votre VPS à l'aide de Visual Studio Code et SSH,
 vous permettant de travailler directement sur votre serveur distant pour gérer votre application et votre infrastructure.
@@ -150,7 +163,9 @@ vous permettant de travailler directement sur votre serveur distant pour gérer 
 
 Avant de déployer sur le VPS, construisez les fichiers statiques de l'application :
 
+```bash
 npm run build
+```
 
 Cela créera un dossier build/ contenant les fichiers prêts à être déployés.
 
@@ -158,11 +173,15 @@ Cela créera un dossier build/ contenant les fichiers prêts à être déployés
 
 Sur votre VPS, copiez les fichiers du dossier build/ dans le répertoire Nginx :
 
+```bash
 sudo cp -r build/* /var/www/html/
+```
 
 Modifiez le fichier de configuration de Nginx pour servir l'application front-end :
 
+```bash
 sudo nano /etc/nginx/sites-available/default
+```
 
 Modifiez ou ajoutez les lignes suivantes :
 
@@ -184,7 +203,9 @@ server {
 
 Redémarrez Nginx :
 
+```bash
 sudo systemctl restart nginx
+```
 
 ### 3. Monitoring avec Monit et GLPI
 
@@ -194,9 +215,13 @@ Exemple de  exemple de configuration de Monit pour surveiller Nginx, le front-en
 
 Ouvrir le fichier de conf de monit : 
 
+```bash
 sudo nano /etc/monit/monitrc
+```
 
 Vérifier ou ajouter :
+
+```bash
 
 set daemon 60                # Vérifie toutes les 60 secondes
 
@@ -233,7 +258,8 @@ check process mongodb with pidfile /var/run/mongodb.pid       # Vérification de
 check system localhost                                   # Vérification de l'utilisation des ressources
     if memory usage > 90% then alert
     if cpu usage > 90% then alert
-    
+
+```
 Explications des sections :
 
 set daemon : Définit la fréquence de vérification des services.
@@ -246,16 +272,18 @@ check system : Surveille l'utilisation des ressources système.
 Sauvegardez et quittez (CTRL + X ensuite Yes)
 
 Pour tester si la configuration est bonne :
-
+```bash
 sudo monit -t
-
+```
 Si la configuration est correcte, tu peux redémarrer Monit avec la commande suivante :
-
+```bash
 sudo systemctl restart monit
-
+```
 Pour vérifier que Monit fonctionne correctement après le redémarrage, utilise :
 
+```bash
 sudo systemctl status monit
+```
 
 ## 🕒 Gestion des tâches planifiées (Cron)
 
@@ -273,13 +301,17 @@ GLPI est bien accessible sur localhost:8082 et que l'API est activée.
 
 Commande pour vérifier l'accès à Monit :
 
+```bash
 curl http://localhost:2812
+```
 
 Cela doit retourner la page de statut de Monit.
 
 Commande pour vérifier l'accès à GLPI :
 
+```bash
 curl http://localhost:8082/apirest.php/
+```
 
 Cela doit retourner un message confirmant que l'API est disponible.
 
@@ -302,7 +334,9 @@ Rendez-vous dans GLPI sous Configuration > API.
 Générez un nouveau App Token.
 Remplacez le jeton dans le script creation_alerte_mail_et_incident_GLPI.py à l'endroit indiqué :
 
+```bash
 app_token = "NOUVEAU_JETON_APP"
+```
 
 #### b. Génération du token de session
 
@@ -312,20 +346,25 @@ Si nécessaire, générez un nouveau Session Token à l'aide d'un script spécif
 
 Cela va générer un nouveau Session Token, que vous devrez insérer dans le script creation_alerte_mail_et_incident_GLPI.py à l'endroit prévu :
 
+```bash
 session_token = "NOUVEAU_JETON_SESSION"
+```
 
 ### 3. Éditer la configuration cron
 
 Sur votre serveur, ouvrez le fichier crontab pour le modifier :
 
+```bash
 crontab -e
+```
 
 ### 4. Ajouter la commande cron
 
 Ajoutez la ligne suivante pour exécuter nos deux scripts Python toutes les 5 minutes et enregistrer la sortie et les erreurs dans un fichier de log :
 
-*/5 * * * * /path/to/data_monit_csv.py && /path/to/creation_alerte_mail_et_incident_GLPI.py >> /path/to/logfile.log 2>&1
-
+```bash
+*/5 * * * * /usr/bin/python3 /path/to/data_monit_csv.py && /usr/bin/python3 /path/to/creation_alerte_mail_et_incident_GLPI.py >> /path/to/logfile.log 2>&1
+```
 Explication :
 
 */5 * * * * : La commande sera exécutée toutes les 5 minutes.
@@ -339,13 +378,16 @@ Explication :
 
 Vous pouvez surveiller le fichier de log pour vous assurer que les scripts s'exécutent correctement et qu'aucune erreur n'est générée :
 
+```bash
 tail -f /path/to/logfile.log
-
+```
 ### 6. Redémarrer le service cron
 
 Si vous souhaitez vous assurer que les nouvelles configurations cron sont bien appliquées, redémarrez le service cron :
 
+```bash
 sudo systemctl restart cron
+```
 
 Avec cette configuration, vos deux scripts Python s'exécuteront toutes les 5 minutes, et les résultats seront automatiquement enregistrés dans le fichier de log spécifié.
 Cela vous permettra de surveiller facilement les exécutions et les erreurs éventuelles.
