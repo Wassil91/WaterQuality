@@ -117,7 +117,7 @@ Ensuite, vous pourrez vous connecter simplement avec :
 ssh mon-vps
 
 Cette section complète le processus de connexion à votre VPS à l'aide de Visual Studio Code et SSH,
- vous permettant de travailler directement sur votre serveur distant pour gérer votre application et votre infrastructure.
+vous permettant de travailler directement sur votre serveur distant pour gérer votre application et votre infrastructure.
 
 
 ## 🌐 Déploiement sur VPS (IONOS)
@@ -241,7 +241,8 @@ Explication :
 /path/to/data_monit_csv.py : Chemin vers votre script Python qui génère les données CSV de Monit.
 && : Cela garantit que le second script ne s'exécute que si le premier réussit.
 /path/to/creation_alerte_mail_et_incident_GLPI.py : Chemin vers votre script Python qui crée des alertes mail et gère les incidents dans GLPI.
->> /path/to/logfile.log 2>&1 : Redirige à la fois la sortie standard (stdout) et les erreurs (stderr) vers le fichier de log, ici logfile.log.
+
+/path/to/logfile.log 2>&1 : Redirige à la fois la sortie standard (stdout) et les erreurs (stderr) vers le fichier de log, ici logfile.log.
 
 ### 5. Vérification des logs
 
@@ -256,4 +257,4 @@ Si vous souhaitez vous assurer que les nouvelles configurations cron sont bien a
 sudo systemctl restart cron
 
 Avec cette configuration, vos deux scripts Python s'exécuteront toutes les 5 minutes, et les résultats seront automatiquement enregistrés dans le fichier de log spécifié.
- Cela vous permettra de surveiller facilement les exécutions et les erreurs éventuelles.
+Cela vous permettra de surveiller facilement les exécutions et les erreurs éventuelles.
