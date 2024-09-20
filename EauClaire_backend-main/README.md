@@ -189,11 +189,11 @@ Un script Python appelé `import_json.py` est disponible dans le projet. Ce scri
 
 **Assurez-vous que MongoDB est en cours d'exécution**  
 
-   Avant d'importer les données, assurez-vous que le service MongoDB fonctionne en vérifiant son statut :
+Avant d'importer les données, assurez-vous que le service MongoDB fonctionne en vérifiant son statut :
+```bash
+sudo systemctl status mongod
+```
 
-   ```bash
-   sudo systemctl status mongod
-    ```
 Mettre à jour le nom de la base de données et l'URL MongoDB
 Avant de lancer le script, assurez-vous de définir correctement le nom de la base de données et l'URL MongoDB dans le fichier de configuration ou dans le script. Vous pouvez également les passer via des variables d'environnement dans le fichier .env.
 
