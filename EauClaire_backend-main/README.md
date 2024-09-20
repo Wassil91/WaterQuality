@@ -16,6 +16,7 @@ Le backend d'EauClaire est construit avec **Flask**, une micro-framework Python,
 - **Modèles de Machine Learning :**
   - Implémentation de modèles de machine learning pour les prédictions et l'analyse des données.
   - Utilisation de **scikit-learn** pour le traitement des données et l'entraînement des modèles.
+  - Toutes nos données récupérées grâces aux modèles sont stockées dans notre base de données mongo.
 
 ## 🌐 Fonctionnalités
 
