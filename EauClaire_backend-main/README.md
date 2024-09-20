@@ -216,6 +216,31 @@ Le script utilise l'URL MongoDB spécifiée et importe chaque collection du fich
 
 En suivant ces instructions, vous pourrez restaurer facilement toute la base de données initiale à partir du fichier JSON fourni. Cela est utile pour une configuration rapide ou la récupération des données après une nouvelle installation.
 
+## 🚀 Lancement Flask
+
+Le backend utilise Flask comme framework web. Voici comment démarrer le serveur.
+
+### 1. Localhost
+
+Lancer le serveur Flask en localhost dans un premier temps :
+
+#### a. Fichier principal : server.py
+Le fichier server.py contient le code nécessaire pour lancer l'application Flask. Pour démarrer le serveur localement, assurez-vous que vous êtes dans le bon endroit, puis exécutez :
+
+```bash
+python server.py
+```
+Le serveur sera disponible à l'adresse suivante : http://localhost:5000.
+
+#### b. Tester l'API
+Après avoir démarré le serveur Flask, vous pouvez tester les différentes routes API en utilisant curl.
+
+### 2. Déploiement
+
+Pour déployer le backend en production, vous pouvez utiliser un serveur comme Gunicorn associé à un serveur proxy comme Nginx. Assurez-vous d'adapter les variables d'environnement et les configurations pour la production.
+
+
+
 
 
 
