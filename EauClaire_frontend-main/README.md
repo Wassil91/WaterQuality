@@ -284,6 +284,115 @@ Pour vérifier que Monit fonctionne correctement après le redémarrage, utilise
 ```bash
 sudo systemctl status monit
 ```
+## ⚙️ Configuration de GLPI
+
+Pour installer et configurer GLPI sur votre serveur, suivez les étapes ci-dessous :
+
+### 1. Préparer l'environnement
+
+Avant de commencer, assurez-vous d'avoir installé les prérequis suivants sur votre VPS :
+
+- **Apache/Nginx** (GLPI utilise un serveur web)
+- **PHP** (minimum version 7.3)
+- **MariaDB/MySQL** (version 10.x ou supérieure)
+- **GLPI** (dernière version à télécharger depuis [GitHub](https://github.com/glpi-project/glpi/releases))
+
+### 2. Créer la base de données MySQL/MariaDB pour GLPI
+
+Connectez-vous à votre serveur MySQL ou MariaDB avec l'utilisateur root ou un utilisateur disposant des droits nécessaires :
+
+```bash
+sudo mysql -u root -p
+```
+Une fois connecté, créez une base de données pour GLPI :
+
+```bash
+CREATE DATABASE glpi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Créez ensuite un utilisateur et attribuez-lui tous les droits sur la base de données GLPI :
+
+```bash
+CREATE USER 'glpi_user'@'localhost' IDENTIFIED BY 'votre_mot_de_passe';
+GRANT ALL PRIVILEGES ON glpi.* TO 'glpi_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+### 3. Télécharger et configurer GLPI
+Téléchargez la dernière version de GLPI depuis le dépôt GitHub et extrayez les fichiers dans le répertoire /var/www/html (ou tout autre répertoire défini pour votre serveur web).
+
+```bash
+cd /var/www/html
+sudo wget https://github.com/glpi-project/glpi/releases/download/10.0.16/glpi-10.0.16.tgz
+sudo tar -xvzf glpi-10.0.16.tgz
+sudo mv glpi-10.0.16 glpi
+sudo chown -R www-data:www-data /var/www/html/glpi
+sudo chmod -R 755 /var/www/html/glpi
+```
+
+### 4. Configurer Nginx (ou Apache)
+Ajoutez la configuration Nginx pour servir GLPI :
+
+```bash
+server {
+    listen 80;
+    server_name votre-domaine.com;
+    root /var/www/html/glpi;
+
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires max;
+        log_not_found off;
+    }
+}
+```
+Redémarrez Nginx pour appliquer les modifications :
+
+```bash
+sudo systemctl restart nginx
+```
+
+### 5. Lancer l'installation de GLPI
+Ouvrez un navigateur et accédez à http://votre-domaine.com pour lancer l'assistant d'installation de GLPI. Vous serez guidé pour :
+
+```bash
+Choisir la langue d'installation.
+Vérifier les prérequis (PHP, extensions, permissions).
+Se connecter à la base de données. Utilisez les informations de la base de données que vous avez créées précédemment :
+Hôte : localhost
+Nom de la base : glpi
+Utilisateur : glpi_user
+Mot de passe : votre_mot_de_passe
+Finaliser l'installation. GLPI configurera les tables nécessaires dans la base de données.
+```
+
+### 6. Configurer les permissions sur les répertoires de GLPI
+Après l'installation, assurez-vous que GLPI puisse écrire dans certains répertoires :
+
+```bash
+sudo chown -R www-data:www-data /var/www/html/glpi
+sudo chmod -R 755 /var/www/html/glpi
+```
+
+### 7. Finaliser la configuration
+Une fois l'installation terminée, vous pouvez vous connecter à l'interface d'administration de GLPI avec les identifiants par défaut :
+
+Identifiant admin : glpi
+Mot de passe admin : glpi
+Assurez-vous de changer ces identifiants dès votre première connexion pour des raisons de sécurité.
 
 ## 🕒 Gestion des tâches planifiées (Cron)
 
