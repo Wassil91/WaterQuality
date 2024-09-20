@@ -177,6 +177,46 @@ En suivant ces étapes, MongoDB sera installé, configuré et prêt à être uti
 
 Cette partie couvre tout ce qui concerne l'installation, la configuration et l'intégration de MongoDB dans ton backend. Cela assure que le README offre une explication claire et complète des étapes nécessaires pour configurer la base de données.
 
+### 7. Importation de la base de données depuis un fichier JSON
+
+Pour faciliter l'installation, un backup de toute la base de données est fourni au format JSON. Il vous suffit de lancer un script pour importer toutes les collections et données dans MongoDB. Cela permet de restaurer rapidement l'état initial de la base de données avec toutes les données nécessaires.
+
+#### a. Script d'importation : `import_json.py`
+
+Un script Python appelé `import_json.py` est disponible dans le projet. Ce script importe automatiquement les données JSON dans MongoDB. Voici comment l'utiliser :
+
+#### b. Étapes pour l'importation
+
+**Assurez-vous que MongoDB est en cours d'exécution**  
+
+   Avant d'importer les données, assurez-vous que le service MongoDB fonctionne en vérifiant son statut :
+
+   ```bash
+   sudo systemctl status mongod
+    ```
+Mettre à jour le nom de la base de données et l'URL MongoDB
+Avant de lancer le script, assurez-vous de définir correctement le nom de la base de données et l'URL MongoDB dans le fichier de configuration ou dans le script. Vous pouvez également les passer via des variables d'environnement dans le fichier .env.
+
+Exemple d'URL dans le fichier .env :
+
+ ```bash
+MONGO_URI=mongodb://eauclaire_user:votre_mot_de_passe@localhost:27017/eauclaire_db
+ ```
+Exécuter le script import_json.py
+Le script import_json.py importe automatiquement toutes les collections JSON dans la base de données MongoDB. Assurez-vous d'être dans le répertoire du projet backend et exécutez la commande suivante :
+
+```bash
+python import_json.py
+ ```
+Cela va automatiquement restaurer toutes les collections et documents de la base de données à partir du fichier JSON fourni.
+
+#### c. Explication du script import_json.py
+
+Le script utilise l'URL MongoDB spécifiée et importe chaque collection du fichier JSON dans la base de données sélectionnée. Si le fichier JSON contient plusieurs collections, elles seront créées dans MongoDB avec les mêmes noms.
+
+En suivant ces instructions, vous pourrez restaurer facilement toute la base de données initiale à partir du fichier JSON fourni. Cela est utile pour une configuration rapide ou la récupération des données après une nouvelle installation.
+
+
 
 
 
