@@ -390,8 +390,10 @@ sudo chmod -R 755 /var/www/html/glpi
 ### 7. Finaliser la configuration
 Une fois l'installation terminée, vous pouvez vous connecter à l'interface d'administration de GLPI avec les identifiants par défaut :
 
+```bash
 Identifiant admin : glpi
 Mot de passe admin : glpi
+```
 Assurez-vous de changer ces identifiants dès votre première connexion pour des raisons de sécurité.
 
 ## 🕒 Gestion des tâches planifiées (Cron)
