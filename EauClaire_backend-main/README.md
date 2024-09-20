@@ -43,3 +43,142 @@ Flask-PyMongo
 pymongo
 scikit-learn
 gunicorn
+```
+
+## ⚙️ Configuration de MongoDB
+
+Le backend utilise MongoDB comme base de données NoSQL pour stocker et gérer les données de l'application. Suivez les étapes ci-dessous pour installer et configurer MongoDB.
+
+### 1. Installer MongoDB
+
+Pour installer MongoDB sur votre machine locale ou serveur Ubuntu, suivez ces étapes :
+
+#### a. Importer la clé publique GPG de MongoDB
+
+Exécutez cette commande pour importer la clé publique de MongoDB :
+
+```bash
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+```
+
+#### b. Ajouter le dépôt MongoDB
+
+Ajoutez le dépôt officiel de MongoDB à votre fichier de sources apt :
+
+```bash
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+```
+
+#### c. Mettre à jour les paquets
+
+Mettez à jour la liste des paquets disponibles :
+
+```bash
+sudo apt update
+```
+
+#### d. Installer MongoDB
+
+Installez MongoDB en utilisant la commande suivante :
+
+```bash
+sudo apt install -y mongodb-org
+```
+
+### 2. Lancer et activer MongoDB
+
+Après avoir installé MongoDB, démarrez le service et assurez-vous qu'il se lance automatiquement au démarrage du système :
+
+```bash
+sudo systemctl start mongod
+sudo systemctl enable mongod
+```
+
+Vous pouvez vérifier que MongoDB fonctionne correctement en utilisant la commande suivante :
+
+```bash
+sudo systemctl status mongod
+```
+
+### 3. Configurer MongoDB
+
+Par défaut, MongoDB écoute sur le port 27017. Vous pouvez configurer MongoDB selon vos besoins en modifiant le fichier de configuration situé à /etc/mongod.conf. Par exemple, si vous souhaitez permettre les connexions à distance, vous pouvez modifier l'adresse d'écoute (bindIp).
+
+#### a. Ouvrir le fichier de configuration
+
+```bash
+sudo nano /etc/mongod.conf
+```
+
+#### b. Permettre les connexions à distance (facultatif)
+
+Dans le fichier de configuration, trouvez la ligne suivante :
+
+```bash
+# network interfaces
+net:
+  port: 27017
+  bindIp: 127.0.0.1
+```
+Modifiez bindIp pour permettre les connexions externes si nécessaire :
+
+```bash
+  bindIp: 0.0.0.0
+```
+Redémarrez MongoDB après avoir apporté des modifications au fichier de configuration :
+
+```bash
+sudo systemctl restart mongod
+```
+### 4. Créer une base de données pour le projet
+
+Une fois MongoDB installé et démarré, vous pouvez créer une base de données pour votre projet EauClaire :
+
+#### a. Accéder à MongoDB shell
+Connectez-vous au shell MongoDB avec :
+
+```bash
+mongo
+```
+
+#### b. Créer une nouvelle base de données
+Créez une base de données appelée eauclaire_db (ou un autre nom selon vos préférences) :
+
+```bash
+use eauclaire_db
+```
+
+#### c. Créer un utilisateur pour la base de données
+Créez un utilisateur avec des permissions sur cette base de données :
+
+```bash
+db.createUser({
+  user: "eauclaire_user",
+  pwd: "votre_mot_de_passe",
+  roles: [ { role: "readWrite", db: "eauclaire_db" } ]
+})
+```
+
+### 5. Intégration de MongoDB avec le Backend
+
+#### a. Définir les variables d'environnement
+Dans le fichier .env du backend, définissez les variables d'environnement pour la connexion à MongoDB. Exemple :
+
+```bash
+MONGO_URI=mongodb://eauclaire_user:votre_mot_de_passe@localhost:27017/eauclaire_db
+```
+Assurez-vous de mettre à jour ces informations avec le bon nom d'utilisateur, mot de passe et nom de base de données.
+
+### 6. Tester la connexion MongoDB
+
+Une fois que tout est configuré, assurez-vous que l'application peut se connecter à la base de données MongoDB. Vous pouvez vérifier cela en démarrant le backend et en exécutant quelques requêtes de base pour interagir avec la base de données.
+
+En suivant ces étapes, MongoDB sera installé, configuré et prêt à être utilisé pour le backend de votre application.
+
+Cette partie couvre tout ce qui concerne l'installation, la configuration et l'intégration de MongoDB dans ton backend. Cela assure que le README offre une explication claire et complète des étapes nécessaires pour configurer la base de données.
+
+
+
+
+
+
