@@ -161,7 +161,7 @@ db.createUser({
 
 ### 5. Intégration de MongoDB avec le Backend
 
-#### a. Définir les variables d'environnement
+#### Définir les variables d'environnement
 Dans le fichier .env du backend, définissez les variables d'environnement pour la connexion à MongoDB. Exemple :
 
 ```bash
