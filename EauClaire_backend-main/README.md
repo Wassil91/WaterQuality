@@ -8,7 +8,6 @@ Le backend d'EauClaire est construit avec **Flask**, une micro-framework Python,
 
 - **Connexion et communication avec la base de données :**
   - Intégration avec **MongoDB** pour le stockage et la récupération des données.
-  - Utilisation de **Mongoose** pour la gestion des modèles et des schémas.
 
 - **Traitement et transformation des données :**
   - Manipulation des données pour les adapter aux besoins de l'application.
