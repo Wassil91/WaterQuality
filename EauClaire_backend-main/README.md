@@ -181,15 +181,17 @@ Cette partie couvre tout ce qui concerne l'installation, la configuration et l'i
 
 Pour faciliter l'installation, un backup de toute la base de données est fourni au format JSON. Il vous suffit de lancer un script pour importer toutes les collections et données dans MongoDB. Cela permet de restaurer rapidement l'état initial de la base de données avec toutes les données nécessaires.
 
-#### a. Script d'importation : `import_json.py`
+#### a. Script d'importation : `import_json_database_mongo.py`
 
-Un script Python appelé `import_json.py` est disponible dans le projet. Ce script importe automatiquement les données JSON dans MongoDB. Voici comment l'utiliser :
+Un script Python appelé **`import_json_database_mongo.py`** est disponible dans le dossier back. Ce script importe automatiquement les données JSON dans MongoDB. Décompressez le zip du backup : **Backup_database_WaterProject_DEV_1509.zip** , qui se trouve dans le dossier back.
+Une fois décompressé, vérifiez que le fichier json importé dans le script **import_json_database_mongo.py** corresponde bien au fichier json dézippé.
 
 #### b. Étapes pour l'importation
 
 **Assurez-vous que MongoDB est en cours d'exécution**  
 
 Avant d'importer les données, assurez-vous que le service MongoDB fonctionne en vérifiant son statut :
+
 ```bash
 sudo systemctl status mongod
 ```
@@ -202,15 +204,15 @@ Exemple d'URL dans le fichier .env :
  ```bash
 MONGO_URI=mongodb://eauclaire_user:votre_mot_de_passe@localhost:27017/eauclaire_db
  ```
-Exécuter le script import_json.py
+Exécuter le script import_json_database_mongo.py
 Le script import_json.py importe automatiquement toutes les collections JSON dans la base de données MongoDB. Assurez-vous d'être dans le répertoire du projet backend et exécutez la commande suivante :
 
 ```bash
-python import_json.py
+python import_json_database_mongo.py
  ```
 Cela va automatiquement restaurer toutes les collections et documents de la base de données à partir du fichier JSON fourni.
 
-#### c. Explication du script import_json.py
+#### c. Explication du script import_json_database_mongo.py
 
 Le script utilise l'URL MongoDB spécifiée et importe chaque collection du fichier JSON dans la base de données sélectionnée. Si le fichier JSON contient plusieurs collections, elles seront créées dans MongoDB avec les mêmes noms.
 
