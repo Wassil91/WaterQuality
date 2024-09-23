@@ -183,7 +183,7 @@ Pour faciliter l'installation, un backup de toute la base de données est fourni
 
 #### a. Script d'importation : `import_json_database_mongo.py`
 
-Un script Python appelé **`import_json_database_mongo.py`** est disponible dans le dossier back. Ce script importe automatiquement les données JSON dans MongoDB. Décompressez le zip du backup : **Backup_database_WaterProject_DEV_1509.zip** , qui se trouve dans le dossier back.
+Un script Python appelé **`import_json_database_mongo.py`** est disponible dans le dossier back. Ce script importe automatiquement les données JSON dans MongoDB. Décompressez le zip du backup : **Backup_database_WaterProject_DEV_21.09.zip** , qui se trouve dans le dossier back.
 Une fois décompressé, vérifiez que le fichier json importé dans le script **import_json_database_mongo.py** corresponde bien au fichier json dézippé.
 
 #### b. Étapes pour l'importation
