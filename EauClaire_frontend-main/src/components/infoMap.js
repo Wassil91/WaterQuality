@@ -6,14 +6,15 @@ import './infoMap.css'; // Import your CSS file
 import { RegionModal, DepartmentModal } from './modal'; // Import the modals
 
 const defaultIcon = new L.Icon({
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+  iconUrl: '/images/marker-icon.png',  // Chemin relatif vers public/images
+  iconRetinaUrl: '/images/marker-icon-2x.png',
+  shadowUrl: '/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   shadowSize: [41, 41],
   shadowAnchor: [12, 41],
 });
+
 
 const InfoMap = () => {
   const [coords, setCoords] = useState([]);

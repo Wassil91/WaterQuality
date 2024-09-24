@@ -1,7 +1,7 @@
 import sys
 import requests
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,send_file
 from flask_cors import CORS
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -9,6 +9,7 @@ from unidecode import unidecode
 import logging
 import re
 from unidecode import unidecode
+import pandas as pd
 
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
@@ -259,7 +260,7 @@ def get_qualite_dep():
             query["Departements"] = department
 
         # Exécution de la requête
-        documents = collection.find(query)
+        documents = collection.find(query).sort("CodePostale", 1)
         data = list(documents)
 
         # Conversion de l'_id pour le format JSON
@@ -382,7 +383,93 @@ def get_coords():
         item['_id'] = str(item['_id'])
 
     return jsonify(data)
+@app.route('/api/download-data', methods=['GET'])
+def download_data():
+    year = request.args.get('year')
+    region = request.args.get('region')
+    collection_conso = dbu3.db_connexion()
+    collection_niveau = dbu.db_connexion()
 
+    # Récupérer les données de consommation
+    query_conso = {}
+    if year:
+        query_conso["Année"] = int(year)
+    
+    if region:
+        query_conso["Région"] = region
+    
+    documents_conso = collection_conso.find(query_conso)
+    data_conso = []
+    for item in documents_conso:
+        filtered_item = {
+            "Région": item.get("Région"),
+            "NomFleuve": "",  # Placeholder, à remplir avec les données de niveau
+            "NiveauEau": item.get("NiveauEau"),
+            "RisqueSecheresse (sur 10)": item.get("RisqueSecheresse (sur 10)"),
+            "RisqueInondation (sur 10)": item.get("RisqueInondation (sur 10)"),
+            "Population (millions)": item.get("Population (millions)"),
+            "Consommation Estimée (L/jour/habitant)": item.get("Consommation Estimée (L/jour/habitant)"),
+            "Surconsommation (Oui/Non)": item.get("Surconsommation (Oui/Non)"),
+            "Année": item.get("Année")
+        }
+        data_conso.append(filtered_item)
+
+    # Récupérer les données de niveau
+    query_niveau = {}
+    if year:
+        year_int = int(year)
+        query_niveau["AnneeAnalyse (Saison)"] = re.compile(f"^{year_int}")
+    if region:
+        query_niveau["Region"] = region
+    
+    documents_niveau = collection_niveau.find(query_niveau)
+    data_niveau = []
+    for item in documents_niveau:
+        filtered_item = {
+            "Région": item.get("Region"),
+            "NomFleuve": item.get("NomFleuve"),
+            "NiveauEau": item.get("NiveauEau"),
+            "RisqueSecheresse (sur 10)": item.get("RisqueSecheresse (sur 10)"),
+            "RisqueInondation (sur 10)": item.get("RisqueInondation (sur 10)"),
+            "Population (millions)": "",  # Placeholder, car les données viennent de la consommation
+            "Consommation Estimée (L/jour/habitant)": "",  # Placeholder
+            "Surconsommation (Oui/Non)": "",  # Placeholder
+            "Année": year_int if year else None  # Ajouter l'année si elle est fournie
+        }
+        data_niveau.append(filtered_item)
+
+    # Fusionner les données tout en éliminant les doublons
+    combined_data = []
+    seen_keys = set()  # Ensemble pour garder trace des clés uniques
+    
+    for conso_item in data_conso:
+        for niveau_item in data_niveau:
+            if conso_item["Région"] == niveau_item["Région"]:
+                # Créer une clé unique
+                key = (conso_item["Région"], niveau_item["NomFleuve"], conso_item["Année"])
+                
+                # Vérifie si la clé existe déjà
+                if key not in seen_keys:
+                    combined_data.append({
+                        "Région": conso_item["Région"],
+                        "NomFleuve": niveau_item["NomFleuve"],
+                        "NiveauEau": niveau_item["NiveauEau"],
+                        "RisqueSecheresse (sur 10)": niveau_item["RisqueSecheresse (sur 10)"],
+                        "RisqueInondation (sur 10)": niveau_item["RisqueInondation (sur 10)"],
+                        "Population (millions)": conso_item["Population (millions)"],
+                        "Consommation Estimée (L/jour/habitant)": conso_item["Consommation Estimée (L/jour/habitant)"],
+                        "Surconsommation (Oui/Non)": conso_item["Surconsommation (Oui/Non)"],
+                        "Année": conso_item["Année"]
+                    })
+                    seen_keys.add(key)  # Ajoute la clé à l'ensemble
+
+    df = pd.DataFrame(combined_data)
+
+    # Spécifier l'encodage pour le CSV
+    csv_file_path = 'combined_data.csv'
+    df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
+
+    return send_file(csv_file_path, as_attachment=True)
 
 # Définir le gestionnaire d'erreurs 404
 @app.errorhandler(404)
