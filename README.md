@@ -45,9 +45,9 @@ https://github.com/user-attachments/assets/82bef5c7-aa3b-4e8e-8170-16efb7ecd72c
 
 https://github.com/user-attachments/assets/4e00385c-36c7-4fd3-be52-705cf73a0d6f
 
-### Fonctionnalité 4 : Réception alerte
+### Fonctionnalité 4 : Inscription & Réception alerte
 
-https://github.com/user-attachments/assets/2b44ec88-0ca1-4305-859d-659f94402c82
+https://github.com/user-attachments/assets/0faeb902-403d-48e7-b5be-4b7dba6a8e5c
 
 ### Fonctionnalité 5 : Dashboard
 
