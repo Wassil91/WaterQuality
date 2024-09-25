@@ -51,7 +51,7 @@ https://github.com/user-attachments/assets/2b44ec88-0ca1-4305-859d-659f94402c82
 
 ### Fonctionnalité 5 : Dashboard
 
-https://github.com/user-attachments/assets/2ee3a5ba-f983-4cd9-8591-993a04e02001
+https://github.com/user-attachments/assets/f09ec046-eb26-4f43-b489-9d5b8a6715da
 
 ### Monitoring : avec Monit
 
