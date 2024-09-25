@@ -2,7 +2,6 @@ import API_BASE_URL from '../apiConfig';
 import React, { useState, useEffect, useCallback } from "react";
 import "./ConsoTable.css"; // Importing the CSS file
 import 'font-awesome/css/font-awesome.min.css';
-import 'font-awesome/css/font-awesome.min.css';
 
 
 const ConsoTable = () => {
@@ -90,7 +89,7 @@ const filteredData = data.filter(item => {
     }
 
     try {
-      const response = await fetch("`${API_BASE_URL}/subscribe`", {
+      const response = await fetch(`${API_BASE_URL}/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +111,7 @@ const filteredData = data.filter(item => {
     }
 
     try {
-      const response = await fetch("`${API_BASE_URL}/trigger-alert`", {
+      const response = await fetch(`${API_BASE_URL}/trigger-alert`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
