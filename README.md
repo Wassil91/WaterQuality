@@ -41,7 +41,7 @@ https://github.com/user-attachments/assets/c19b9884-54c9-4427-a57b-ed6a5ae20016
 
 https://github.com/user-attachments/assets/82bef5c7-aa3b-4e8e-8170-16efb7ecd72c
 
-### Fonctionnalité 3 : Ouverture CSV télécharger
+### Fonctionnalité 3 : Ouverture CSV téléchargés
 
 https://github.com/user-attachments/assets/4e00385c-36c7-4fd3-be52-705cf73a0d6f
 
