@@ -39,7 +39,7 @@ https://github.com/user-attachments/assets/c19b9884-54c9-4427-a57b-ed6a5ae20016
 
 ### Fonctionnalité 2 : Tableau données de consommation
 
-https://github.com/user-attachments/assets/329116c1-7d3b-45a6-8df1-eb43e8280531
+https://github.com/user-attachments/assets/82bef5c7-aa3b-4e8e-8170-16efb7ecd72c
 
 ### Fonctionnalité 3 : Réception alerte
 
